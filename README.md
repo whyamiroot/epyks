@@ -1,8 +1,15 @@
 # Epyks - anti Skype
 
+## Dependencies
+- Boost 1.58
+- libccrtp-dev 2.0.9
+
+
+
 - RTP/RTSP (GNU ccRTP)
+- UPnP IGD
 - Opus (audio)
 - OpenH264 (video)
-- Boost ASIO
+- Boost ASIO (for user discovery)
 - Qt
 
