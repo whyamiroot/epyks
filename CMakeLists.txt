@@ -2,11 +2,6 @@ cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 
 project("epyks")
 
-enable_language(CXX)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall --std=c++17")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -DDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -g -DNDEBUG")
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(Boost_USE_MULTITHREADED ON)
 find_package(Boost 1.58
@@ -22,11 +17,27 @@ set(UPNPC_BUILD_TESTS FALSE CACHE BOOL "Build test executables"  FORCE)
 set(UPNPC_BUILD_SHARED FALSE CACHE BOOL "Build shared library" FORCE)
 set(UPNPC_BUILD_SAMPLE FALSE CACHE BOOL "Build test executables" FORCE)
 set(UPNPC_NO_INSTALL TRUE CACHE BOOL "Disable installation" FORCE)
-add_subdirectory(miniupnp/miniupnpc)
+add_subdirectory(lib/miniupnp/miniupnpc)
+include_directories(lib/miniupnp/miniupnpc)
+
+set(JRTPLIB_COMPILE_STATIC TRUE CACHE BOOL "Flag indicating if a static library should be built, or a dynamic one" FORCE)
+set(JRTPLIB_COMPILE_TESTS OFF CACHE BOOL "Compile jrtplib tests" FORCE)
+# default configuration is missing [u]int[size]_t types, so force additional header
+set(JRTPLIB_STDINT ON CACHE BOOL "Force std int types to be accepted" FORCE)
+set(RTP_INTTYPE_HEADERS "#include <cstdint>\n${RTP_INTTYPE_HEADERS}" CACHE STRING "Force cstdint header" FORCE)
+add_subdirectory(lib/jrtplib-3.11.1)
+include_directories(${JRTPLIB_INCLUDE_DIRS})
+
+enable_language(CXX)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall --std=c++17")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g -DDEBUG")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -g -DNDEBUG")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_library(epyks-static STATIC epyks.h epyks.cpp)
 target_link_libraries(epyks-static ${Boost_LIBRARIES}
                                    ${OPENSSL_LIBRARIES}
+                                   jrtplib-static
                                    libminiupnpc-static)
 
 add_subdirectory(client)

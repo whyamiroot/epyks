@@ -2,8 +2,6 @@
 
 ## Dependencies
 - Boost 1.58
-- libccrtp-dev 2.0.9
-
 
 
 - RTP/RTSP (GNU ccRTP)
