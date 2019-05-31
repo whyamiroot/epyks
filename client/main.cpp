@@ -1,4 +1,8 @@
+#include "qt/mainwindow.h"
 #include <iostream>
+
+#include <QApplication>
+#include <QtWidgets>
 
 #include <boost/asio.hpp>
 #include <boost/asio/ssl.hpp>
@@ -17,11 +21,15 @@ void printDevList(UPNPDev* devList) {
     printDevList(devList->pNext);
 }
 
-int main(int argc, char** argv) {
-    std::cout << "Test" << std::endl;
-    UPNPDev* devList = upnpDiscover(1000, nullptr, nullptr, 0, 0, nullptr);
+int main(int argc, char* argv[]) {
+    /*UPNPDev* devList = upnpDiscover(100, nullptr, nullptr, 0, 0, nullptr);
     printDevList(devList);
     freeUPNPDevlist(devList);
-    return 0;
+    */
+    QApplication::setApplicationName("epyks");
+    QApplication a(argc, argv);
+    MainWindow window;
+    window.show();
+    return a.exec();
 }
 
