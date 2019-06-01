@@ -12,7 +12,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
-set(QT_FILE_NAMES mainwindow)
+set(QT_FILE_NAMES logindialog
+                  mainwindow)
 
 # for each qt file name, try to include header, sources and ui files
 foreach(name ${QT_FILE_NAMES})

@@ -1,3 +1,4 @@
+#include "qt/logindialog.h"
 #include "qt/mainwindow.h"
 #include <iostream>
 
@@ -26,10 +27,8 @@ int main(int argc, char* argv[]) {
     printDevList(devList);
     freeUPNPDevlist(devList);
     */
-    QApplication::setApplicationName("epyks");
     QApplication a(argc, argv);
-    MainWindow window;
-    window.show();
+    MainWindow mainWindow;
     return a.exec();
 }
 

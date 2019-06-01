@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "logindialog.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -15,8 +17,13 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void onSigninSuccess();
+
 private:
     Ui::MainWindow *ui;
+    LoginDialog* loginDialog;
+
 };
 
 #endif // MAINWINDOW_H
