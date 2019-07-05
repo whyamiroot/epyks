@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
 
 project("epyks")
 
-
 set(Boost_USE_MULTITHREADED ON)
 find_package(Boost 1.58
              REQUIRED
@@ -12,6 +11,10 @@ include_directories(${Boost_INCLUDE_DIRS})
 
 find_package(OpenSSL REQUIRED)
 include_directories(${OpenSSL_INCLUDE_DIRS})
+
+find_package(Protobuf REQUIRED)
+include_directories(${Protobuf_INCLUDE_DIRS})
+set(PROTOBUF_LIBRARIES ${PROTOBUF_LIBRARIES})
 
 set(UPNPC_BUILD_TESTS FALSE CACHE BOOL "Build test executables"  FORCE)
 set(UPNPC_BUILD_SHARED FALSE CACHE BOOL "Build shared library" FORCE)
@@ -40,6 +43,7 @@ target_link_libraries(epyks-static ${Boost_LIBRARIES}
                                    jrtplib-static
                                    libminiupnpc-static)
 
+add_subdirectory(proto)
 add_subdirectory(client)
 add_subdirectory(server)
 

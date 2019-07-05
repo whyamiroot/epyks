@@ -1,0 +1,21 @@
+syntax = "proto2";
+
+package proto;
+
+enum ResponseStatus {
+  OK = 0;
+  FAIL = 1;
+}
+
+message SigninRequest {
+  required int32 magic = 1;
+  required string login = 2;
+  required string passwordHash = 3; 
+}
+
+message SigninResponse {
+  required ResponseStatus status = 1;
+  optional int64 sessionId = 2;
+  optional string error = 3;
+}
+

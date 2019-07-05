@@ -4,7 +4,8 @@
 - Boost 1.58
 
 
-- RTP/RTSP (GNU ccRTP)
+- Protobuf (message description and serialization)
+- RTP/RTSP (jrtplib)
 - UPnP IGD
 - Opus (audio)
 - OpenH264 (video)

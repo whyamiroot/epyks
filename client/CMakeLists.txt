@@ -12,6 +12,14 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
+find_package(Qt5Core REQUIRED)
+include_directories(${Qt5Core_INCLUDE_DIRS})
+message(STATUS "Using Qt5::Core v${Qt5Core_VERSION}")
+
+find_package(Qt5Widgets REQUIRED)
+include_directories(${Qt5Widgets_INCLUDE_DIRS})
+message(STATUS "Using Qt5::Widgets v${Qt5Widgets_VERSION}")
+
 set(QT_FILE_NAMES logindialog
                   mainwindow)
 
@@ -27,15 +35,8 @@ set(CLIENT_SOURCES main.cpp ${QT_FILES})
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-find_package(Qt5Core REQUIRED)
-include_directories(${Qt5Core_INCLUDE_DIRS})
-message(STATUS "Using Qt5::Core v${Qt5Core_VERSION}")
-
-find_package(Qt5Widgets REQUIRED)
-include_directories(${Qt5Widgets_INCLUDE_DIRS})
-message(STATUS "Using Qt5::Widgets v${Qt5Widgets_VERSION}")
-
-add_library(epyks-client-static STATIC ${CLIENT_SOURCES})
+add_library(epyks-client-static STATIC ${CLIENT_SOURCES} ${PROTO_HEADERS} ${PROTO_SOURCES})
 target_link_libraries(epyks-client-static ${Qt5Core_LIBRARIES}
-                                          ${Qt5Widgets_LIBRARIES})
+                                          ${Qt5Widgets_LIBRARIES}
+                                          ${PROTOBUF_LIBRARIES})
 

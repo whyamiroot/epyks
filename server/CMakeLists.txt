@@ -13,5 +13,6 @@ set(SOURCES main.cpp)
 
 include_directories(${CMAKE_SOURCE_DIR})
 
-add_library(epyks-server-static STATIC ${HEADERS} ${SOURCES})
+add_library(epyks-server-static STATIC ${HEADERS} ${SOURCES} ${PROTO_HEADERS} ${PROTO_SOURCES})
+target_link_libraries(epyks-server-static ${PROTOBUF_LIBRARIES})
 
